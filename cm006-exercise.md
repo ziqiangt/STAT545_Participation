@@ -239,9 +239,21 @@ Let's hold off on identifying the grammar.
 1. Initiate the `ggplot` call to make a scatterplot of `continent` vs `pop`; initiate the log y scale. Store the call in the variable `b`.
 
 
+```r
+a + geom_point(alpha = 0.1)
+```
+
+![](cm006-exercise_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+
 
 2. Add the point geom to `b`. Why is this an ineffective plot?
 
+
+```r
+a +geom_jitter(alpha = 0.1)
+```
+
+![](cm006-exercise_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 
 3. A solution is to jitter the points. Add the jitter geom. Re-run the command a few times -- does the plot change? Why?
@@ -253,6 +265,13 @@ Let's hold off on identifying the grammar.
 
 5. We can add multiple geom _layers_ to our plot. Put a jitterplot overtop of the violin plot, starting with our base `b`. Try vice-versa. 
 
+
+```r
+ a + geom_violin() +
+  geom_jitter(alpha = 0.1)
+```
+
+![](cm006-exercise_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 
 6. Optional: git stage and commit
@@ -280,9 +299,32 @@ Let's make some time/line plot, starting with Canada's life expectancy over time
     4. Also displays the points
 
 
+```r
+gapminder %>% 
+  filter(country == "Canada") %>% 
+  ggplot(aes(year, lifeExp)) + 
+  geom_line() + 
+  geom_point()
+```
+
+![](cm006-exercise_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+
 
 3. Attempt to overlay line plots for all countries. That is, repeat the above code, but don't filter. What's wrong here?
 
+
+```r
+c <- ggplot(gapminder,aes(year,lifeExp))
+c + geom_line()
+```
+
+![](cm006-exercise_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+
+```r
+c + geom_line(aes(group = country), alpha=0.2)
+```
+
+![](cm006-exercise_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
 
 
 4. Use the `group` aesthetic to fix the problem.
