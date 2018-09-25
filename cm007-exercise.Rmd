@@ -119,6 +119,15 @@ Let's see how Rwanda's life expectancy and GDP per capita have evolved over time
 - Try `geom_line()`. Try `geom_point()`.
 - Add `arrow=arrow()` option.
 - Add `geom_text`, with year label. 
+```{r}
+gapminder %>% 
+  filter(country == "Rwanda") %>% 
+  arrange(year) %>% 
+  ggplot(aes(gdpPercap, lifeExp)) + 
+  scale_x_log10() +
+  geom_point()+
+  geom_path(arrow = arrow()) ##connet with the path
+```
 
 
 ## Two categorical variables
@@ -128,6 +137,11 @@ Try `cyl` (number of cylinders) ~ `am` (transmission) in the `mtcars` data frame
 - Scatterplot? Jitterplot? No.
 - `geom_count()`.
 - `geom_bin2d()`. Compare with `geom_tile()` with `fill` aes.
+```{r}
+ggplot(mtcars, aes(factor(cyl), factor(am))) + 
+  #geom_count() + 
+  geom_bin2d()
+```
 
 ## Overplotting
 
@@ -138,12 +152,28 @@ Try a scatterplot with:
 - `geom_density2d()`
 - `geom_smooth()`
 
+```{r}
+gvsl + geom_hex()
+gvsl + geom_density2d()
+gvsl + geom_point(aloha=0.1)+geom_smooth()
+```
+
 
 ## Bar plots
 
 How many countries are in each continent? Use the year 2007.
 
 1. After filtering the gapminder data to 2007, make a bar chart of the number of countries in each continent. Store everything except the geom in the variable `d`.
+```{r}
+gvsl + geom_point() + coord_polar()
+```
+```{r}
+gapminder %>% 
+  filter(year == 2007) %>% 
+  ggplot(aes(x=continent))+
+  geom_bar()
+```
+
 
 
 
@@ -165,13 +195,37 @@ __Uses of bar plots__: Get a sense of relative quantities of categories, or see 
 If you'd like some practice, give these exercises a try
 
 __Exercise 1__: Make a plot of `year` (x) vs `lifeExp` (y), with points coloured by continent. Then, to that same plot, fit a straight regression line to each continent, without the error bars. If you can, try piping the data frame into the `ggplot` function.
+```{r}
+ggplot(gapminder, aes(year, lifeExp, color = continent)) +
+  geom_point() +
+  geom_smooth(method = "lm", se=FALSE)
+```
 
 __Exercise 2__: Repeat Exercise 1, but switch the _regression line_ and _geom\_point_ layers. How is this plot different from that of Exercise 1?
+```{r}
+ggplot(gapminder, aes(year, lifeExp, color = continent)) +
+  geom_smooth(method = "lm", se=FALSE) +
+  geom_point()
+```
 
 __Exercise 3__: Omit the `geom_point` layer from either of the above two plots (it doesn't matter which). Does the line still show up, even though the data aren't shown? Why or why not?
+```{r}
+ggplot(gapminder, aes(year, lifeExp, color = continent)) +
+  geom_smooth(method = "lm", se=FALSE)
+```
 
 __Exercise 4__: Make a plot of `year` (x) vs `lifeExp` (y), facetted by continent. Then, fit a smoother through the data for each continent, without the error bars. Choose a span that you feel is appropriate.
+```{r}
+ggplot(gapminder, aes(year, lifeExp)) +
+  geom_point() +
+  facet_wrap(~ continent)+
+  geom_smooth(method = "lm", se=FALSE)
+```
 
 __Exercise 5__: Plot the population over time (year) using lines, so that each country has its own line. Colour by `gdpPercap`. Add alpha transparency to your liking. 
+```{r}
+ggplot(gapminder, aes(year, pop, color=gdpPercap)) +
+  geom_line(aes(group=country),alpha=0.2)
+```
 
 __Exercise 6__: Add points to the plot in Exercise 5.
