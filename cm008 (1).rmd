@@ -1,5 +1,5 @@
 title: "cm008 Exercises"
-output: git_document
+output: github_document
 ---
 
 ```{r}
