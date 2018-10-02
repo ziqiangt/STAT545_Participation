@@ -56,7 +56,9 @@ Read these three LOTR csv's, saving them to `lotr1`, `lotr2`, and `lotr3`:
 - https://github.com/jennybc/lotr-tidy/blob/master/data/The_Return_Of_The_King.csv
 
 ```{r}
-
+lotr1 <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Fellowship_Of_The_Ring.csv")
+lotr2 <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Two_Towers.csv")
+lotr3 <- read_csv("https://github.com/jennybc/lotr-tidy/blob/master/data/The_Return_Of_The_King.csv")
 ```
 
 ## `gather()`
