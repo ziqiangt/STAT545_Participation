@@ -1,8 +1,6 @@
+---
 title: "cm008 Exercises"
-output: 
-  html_document
-  guthub_document
-  keep_md: true
+output: github_document
 ---
 
 ```{r}
