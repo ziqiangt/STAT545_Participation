@@ -3,8 +3,7 @@ library(tidyverse)
 
 a <- 5
 print(a^2)
-bcl <- read.csv("/Users/apple/Desktop/STAT545/STAT545_Participation/STAT547/cm107/bcl/bcl-data.csv")
-
+bcl <- read.csv("http://pub.data.gov.bc.ca/datasets/176284/BC_Liquor_Store_Product_Price_List.csv",stringsAsFactors = FALSE)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   
@@ -40,6 +39,7 @@ server <- function(input, output) {
       ggplot(aes(Price)) +
       geom_histogram()
   })
+  
   output$price_table <- renderTable({
     bcl_filtered()
   })
